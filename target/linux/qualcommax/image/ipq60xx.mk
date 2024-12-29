@@ -24,6 +24,16 @@ define Device/cambiumnetworks_xe3-4
 endef
 TARGET_DEVICES += cambiumnetworks_xe3-4
 
+define Device/linksys_mr
+	$(call Device/FitImage)
+	DEVICE_VENDOR := Linksys
+	BLOCKSIZE := 128k
+	PAGESIZE := 2048
+	KERNEL_SIZE := 8192k
+	IMAGES += factory.bin
+	IMAGE/factory.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-ubi | linksys-image type=$$$$(DEVICE_MODEL)
+endef
+
 define Device/netgear_wax214
        $(call Device/FitImage)
        $(call Device/UbiFit)
