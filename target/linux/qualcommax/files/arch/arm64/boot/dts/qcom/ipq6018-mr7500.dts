@@ -63,6 +63,7 @@
 		compatible = "pwm-leds";
 		
 		usb {
+			color = <LED_COLOR_ID_BLUE>;
 			function = LED_FUNCTION_USB;
 			gpios = <&tlmm 30 GPIO_ACTIVE_HIGH>;
 			pwms = <&pwm 1 650000>;
@@ -72,16 +73,22 @@
 		};
 		
 		led_system_red: red {
+			color = <LED_COLOR_ID_RED>;
+			function = LED_FUNCTION_POWER;
 			pwms = <&pwm 2 1250000>;
 			max-brightness = <255>;
 		};
 		
 		led_system_green: green {
+			color = <LED_COLOR_ID_GREEN>;
+			function = LED_FUNCTION_POWER;
 			pwms = <&pwm 3 1250000>;
 			max-brightness = <255>;
 		};
 		
 		led_system_blue: blue {
+			color = <LED_COLOR_ID_BLUE>;
+			function = LED_FUNCTION_POWER;
 			pwms = <&pwm 0 1250000>;
 			max-brightness = <255>;
 		};
