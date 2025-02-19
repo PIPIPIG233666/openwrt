@@ -440,6 +440,143 @@
 
 &qpic_nand {
 	status = "okay";
+	
+	/*
+	* Bootloader will find the NAND DT node by the compatible and
+	* then "fixup" it by adding the partitions from the SMEM table
+	* using the legacy bindings thus making it impossible for us
+	* to change the partition table or utilize NVMEM for calibration.
+	* So add a dummy partitions node that bootloader will populate
+	* and set it as disabled so the kernel ignores it instead of
+	* printing warnings due to the broken way bootloader adds the
+	* partitions.
+	*/
+	partitions {
+		status = "disabled";
+	};
+	nand@0 {
+		reg = <0>;
+		nand-ecc-strength = <4>;
+		nand-ecc-step-size = <512>;
+		nand-bus-width = <8>;
+		
+		#address-cells = <1>;
+		#size-cells = <1>;
+		
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+			
+			partition@0 {
+				label = "0:sbl1";
+				reg = <0x00000000 0x000180000>;
+				read-only;
+			};
+			
+			partition@180000 {
+				label = "0:mibib";
+				reg = <0x000180000 0x00100000>;
+				read-only;
+			};
+			
+			partition@280000 {
+				label = "0:qsee";
+				reg = <0x000280000 0x00380000>;
+				read-only;
+			};
+			
+			partition@600000 {
+				label = "0:devcfg";
+				reg = <0x000600000 0x00080000>;
+				read-only;
+			};
+			
+			partition@680000 {
+				label = "0:rpm";
+				reg = <0x000680000 0x00080000>;
+				read-only;
+			};
+			
+			partition@700000 {
+				label = "0:cdt";
+				reg = <0x000700000 0x00080000>;
+				read-only;
+			};
+			
+			partition@780000 {
+				label = "0:appsblenv";
+				reg = <0x000780000 0x00080000>;
+				read-only;
+			};
+			
+			partition@800000 {
+				label = "0:appsbl";
+				reg = <0x000800000 0x00180000>;
+				read-only;
+			};
+			
+			partition@980000 {
+				label = "0:art";
+				reg = <0x000980000 0x00080000>;
+				read-only;
+			};
+			
+			partition@a00000 {
+				label = "0:ethphyfw";
+				reg = <0x000a00000 0x00080000>;
+				read-only;
+			};
+			
+			partition@a80000 {
+				label = "u_env";
+				reg = <0x000a80000 0x00080000>;
+			};
+			
+			partition@b00000 {
+				label = "s_env";
+				reg = <0x000b00000 0x00040000>;
+			};
+			
+			partition@b40000 {
+				label = "devinfo";
+				reg = <0x000b40000 0x00040000>;
+				read-only;
+			};
+			
+			partition@b80000 {
+				label = "kernel";
+				reg = <0x000b80000 0x05200000>;
+			};
+			
+			partition@1380000 {
+				label = "rootfs";
+				reg = <0x001380000 0x04a00000>;
+			};
+			
+			partition@5d80000 {
+				label = "alt_kernel";
+				reg = <0x005d80000 0x05200000>;
+			};
+			
+			partition@6580000 {
+				label = "alt_rootfs";
+				reg = <0x006580000 0x04a00000>;
+			};
+			
+			partition@af80000 {
+				label = "sysdiag";
+				reg = <0x00af80000 0x00400000>;
+				read-only;
+			};
+			
+			partition@b380000 {
+				label = "syscfg";
+				reg = <0x00b380000 0x013d00000>;
+				read-only;
+			};
+		};
+	};
 };
 
 &ssphy_0 {
