@@ -74,14 +74,15 @@
 		
 		led_system_red: red {
 			color = <LED_COLOR_ID_RED>;
-			function = LED_FUNCTION_POWER;
+			function = LED_FUNCTION_INDICATOR;
 			pwms = <&pwm 2 1250000>;
 			max-brightness = <255>;
+			panic-indicator;
 		};
 		
 		led_system_green: green {
 			color = <LED_COLOR_ID_GREEN>;
-			function = LED_FUNCTION_POWER;
+			function = LED_FUNCTION_INDICATOR;
 			pwms = <&pwm 3 1250000>;
 			max-brightness = <255>;
 		};
