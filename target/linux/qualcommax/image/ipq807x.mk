@@ -176,7 +176,7 @@ define Device/linksys_mx
 	DEVICE_VENDOR := Linksys
 	BLOCKSIZE := 128k
 	PAGESIZE := 2048
-	KERNEL_SIZE := 6144k
+	KERNEL_SIZE := 8192k
 	IMAGE_SIZE := 147456k
 	NAND_SIZE := 512m
 	SOC := ipq8072
